@@ -107,9 +107,19 @@ public class PlayerController : MonoBehaviour {
             Health extraDamage = other.GetComponent<Health>();
             if(extraDamage != null)
             {
-                hits -= extraDamage.health;
+                hits -= (extraDamage.health - 1);
+                extraDamage.health = 0;
             }
             Destroy(other.gameObject);
+        }
+        if(other.tag == "HostileBullet")
+        {
+            Health extraDamage = other.GetComponent<Health>();
+            if(extraDamage != null)
+            {
+                hits -= extraDamage.health;
+                extraDamage.health = 0;
+            }
         }
     }
 }

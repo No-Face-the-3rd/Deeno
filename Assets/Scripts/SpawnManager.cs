@@ -40,6 +40,7 @@ public class SpawnManager : MonoBehaviour {
         if(numPickups < curTime % level && Random.Range(0.0f,1.0f) < 0.33f)
         {
             spawnPickup();
+            spawnPickup();
         }
 
         if(numEnemies < curTime % level && Random.Range(0.0f,1.0f) < 0.5f)
