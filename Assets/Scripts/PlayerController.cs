@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour {
     private float primCool = 0.0f, seconCool = 0.0f;
     public int hits;
     public GameObject primaryBullet, secondaryBullet;
+    public float shotsRegen;
 
 
 	// Use this for initialization
@@ -73,6 +74,8 @@ public class PlayerController : MonoBehaviour {
         }
         transform.rotation = Quaternion.Euler(rot);
         transform.Translate(trans * transSpeed * Time.deltaTime, Space.World);
+
+        shots += shotsRegen * Time.deltaTime;
     }
 
     void OnTriggerEnter(Collider other)

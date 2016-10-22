@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class SpawnManager : MonoBehaviour {
     public static SpawnManager manager;
@@ -13,6 +14,9 @@ public class SpawnManager : MonoBehaviour {
     private GameObject main;
     private GameObject player;
     public GameObject playerPref;
+
+    public Slider shotsSlider;
+    public Slider healthSlider;
 	// Use this for initialization
 	void Start () {
         if (manager == null)
@@ -66,6 +70,9 @@ public class SpawnManager : MonoBehaviour {
             curTime = 0.0f;
             level = numEnemies = numHazards = numPickups = 0;
         }
+
+        shotsSlider.value = player.GetComponent<PlayerController>().shots / player.GetComponent<PlayerController>().shotsMax;
+        healthSlider.value = player.GetComponent<PlayerController>().hits / level;
 	}
 
     public void killedPickup()
