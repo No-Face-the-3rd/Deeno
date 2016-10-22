@@ -20,7 +20,7 @@ public class Health : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Respawn" || other.tag == "Hostile")
+        if(other.tag == "Respawn" || (other.tag == "Hostile" && (this.tag != "HostileBullet" && this.tag != "Hostile")))
         {
             Physics.IgnoreCollision(this.GetComponent<Collider>(), other);
             health--;
