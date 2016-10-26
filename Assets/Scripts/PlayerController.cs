@@ -30,7 +30,16 @@ public class PlayerController : MonoBehaviour {
     {
         primCool += Time.deltaTime;
         seconCool += Time.deltaTime;
-	}
+        if (shots > shotsMax)
+        {
+            shots = 1.0f;
+            hits++;
+            if (shotsMax / hits < SpawnManager.manager.getLevel())
+            {
+                shotsMax += 10.0f;
+            }
+        }
+    }
 
     void FixedUpdate()
     {
@@ -85,15 +94,7 @@ public class PlayerController : MonoBehaviour {
             shots += other.GetComponent<ShotsValue>().shotsValue;
             Destroy(other.gameObject);
             SpawnManager.manager.killedPickup();
-            if (shots > shotsMax)
-            {
-                shots = 1.0f;
-                hits++;
-                if (shotsMax / hits < SpawnManager.manager.getLevel())
-                {
-                    shotsMax += 10.0f;
-                }
-            }
+            
         }
         if(other.tag == "Hostile")
         {
@@ -101,7 +102,11 @@ public class PlayerController : MonoBehaviour {
             EnemyFire test = other.GetComponent<EnemyFire>();
             if(test != null)
             {
-
+                SpawnManager.manager.killedEnemy();
+            }
+            else
+            {
+                SpawnManager.manager.killedHazard();
             }
             if (shotsMax / hits > SpawnManager.manager.getLevel())
             {
@@ -123,6 +128,8 @@ public class PlayerController : MonoBehaviour {
                 hits -= extraDamage.health;
                 extraDamage.health = 0;
             }
+            hits -= 1;
+            Destroy(other.gameObject);
         }
     }
 }

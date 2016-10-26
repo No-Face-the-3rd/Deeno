@@ -17,6 +17,7 @@ public class SpawnManager : MonoBehaviour {
 
     public Slider shotsSlider;
     public Slider healthSlider;
+    private float healthMax = 0.0f;
 	// Use this for initialization
 	void Start () {
         if (manager == null)
@@ -70,9 +71,10 @@ public class SpawnManager : MonoBehaviour {
             curTime = 0.0f;
             level = numEnemies = numHazards = numPickups = 0;
         }
-
+        if (player.GetComponent<PlayerController>().hits > healthMax)
+            healthMax = player.GetComponent<PlayerController>().hits;
         shotsSlider.value = player.GetComponent<PlayerController>().shots / player.GetComponent<PlayerController>().shotsMax;
-        healthSlider.value = player.GetComponent<PlayerController>().hits / level;
+        healthSlider.value = player.GetComponent<PlayerController>().hits / healthMax;
 	}
 
     public void killedPickup()
